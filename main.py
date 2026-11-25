@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""Fortune in a Pot (make.fun).
+"""Fortune in a Pot — a make.fun one-line entry."""
 
-Writes the entry to /output/entry.txt, where the sealed scorer reads it.
-"""
+from pathlib import Path
 
-import os
+ENTRY = "Your leaves will outgrow this windowsill, and the sun will finally learn your name."
 
-TEXT = 'This week, a sunbeam will find your newest leaf first — and the one who waters you will notice it too.'
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
